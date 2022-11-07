@@ -1,0 +1,16 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+{% block title %}Авторизация{% endblock %}
+{% block content %}
+<h2>Авторизация</h2>
+{% if user.is_authenticated %}
+  <p>Вы уже выполнили вход</p>
+{% else %}
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout="vertical" %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {% buttons submit='Войти' %}{% endbuttons %}
+  </form>
+{% endif %}
+{% endblock %}

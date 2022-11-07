@@ -1,0 +1,97 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content="width=device-width, inital-scale=1, shrink-to-fit=no">
+        <title> {% block title %}Главная{% endblock %} - Доска 
+        объявлений</title>
+        {% bootstrap_css %}
+        <link rel="stylesheet" type="text/css"
+        href="{% static 'main/style.css' %}">
+        {% bootstrap_javascript jquery='slim' %}
+    </head>
+    <body class="container-fluid">
+
+        <!--Личное меню/общее меню-->
+        <div class="row">
+            <ul class="col nav justify-content-end border">
+                <li>
+                    <a class="nav-link" href="{% url 'main:other' page='about' %}">О сайте</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    href="#" role="button" aria-haspopup="true"
+                    aria-expanded="false">Профиль</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'main:profile' %}">Мои 
+                        объявления</a>
+                        <a class="dropdown-item" href="{% url 'main:profile_change' %}">Изменить личные 
+                        данные</a>
+                        <a class="dropdown-item" href="{% url 'main:password_change' %}">Изменить 
+                        пароль</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'main:logout' %}">Выйти</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'main:profile_delete' %}">Удалить</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link"
+                    href="{% url 'main:register' %}">Регистрация</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                    href="{% url 'main:login' %}">Вход</a>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <!--Меню навигации-->
+        <div class="row">
+            <nav class="col-md-auto nav flex-column border">
+                <a class="navbar-brand" href="{% url 'main:index' %}">
+                    <img src="{% static 'main/send-fill.svg' %}" width="50" height="45"
+                      class="d-inline-block align-top" alt="">
+                      Bboard!
+                </a>
+
+                <!--Суперрубрики и рубрики-->
+                {% for superrubric in superrubrics %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown" href="#">
+                        {{ superrubric.name }}
+                    </a>
+                    <div class="dropdown-menu">
+                        {% for rubric in superrubric.rubric_set.all %}
+                        <a class="dropdown-item" href="{% url 'main:by_rubric' pk=rubric.pk %}">
+                            {{ rubric.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                </li>
+            </nav>
+
+            <!--Сообщения-->
+            <section class="col border py-2">
+                {% bootstrap_messages %}
+                {% block content %}
+                {% endblock %}
+            </section>
+
+        </div>
+
+        <!--Футер-->
+        <footer class="border-top text-center py-3"> 
+            <p>©2022 Copyright &laquo;Bboard!&raquo;</p>    
+        </footer>
+
+    </body>
+</html>
+
+

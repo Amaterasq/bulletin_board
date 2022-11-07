@@ -1,0 +1,54 @@
+{% extends 'layout/basic.html' %}
+
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Профиль пользователя{% endblock %}
+{% block content %}
+<h2>Профиль пользователя {{ user.username }}</h2>
+{% if user.first_name and user.last_name %}
+<p>3дравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+{% else %}
+<p>3дравствуйте!</p>
+{% endif %}
+<h3 class="mb-2">Ваши объявления</h3>
+<br>
+<a class="btn btn-success"
+    href="{% url 'main:profile_bb_add' %}">
+    Добавить объявление
+</a>
+{% if bbs %}
+<ul class="list-unstyled">
+    {% for bb in bbs %}
+    <li class="media my-5 p-3 border">
+        {% url 'main:profile_bb_detail' pk=bb.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        {% if bb.image %}
+        <img class="mr-3" src="{% thumbnail bb.image 'default' %}">
+        {% else %}
+        <img class="mr-3" src="{% static 'main/empty.jpg' %}" alt='empty'>
+        {% endif %}
+        </a>
+        <div class="media-body">
+          <p>Рубрика: {{ bb.rubric }}</p>
+          <h3><a href="{{ url }}{{ all }}">
+          {{ bb.title }}</a></h3>
+          <div>{{ bb.content }}</div>
+          <p class="text-right font-weight-bold">{{ bb.price }} руб.</p>
+          <p class="text-right font-italic">{{ bb.created_at }}</p>
+          <p class="text-right mt-2">
+            <a href="{% url 'main:profile_bb_change' pk=bb.pk %}">
+            Исправить</a>
+            |
+            <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить</a>
+          </p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% comment %} {% bootstrap_pagination page url=keyword %} {% endcomment %}
+{% endif %}
+{% endblock %}
+
+

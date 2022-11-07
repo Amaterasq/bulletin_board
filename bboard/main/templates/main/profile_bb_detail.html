@@ -1,0 +1,43 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}{{ bb.title }} - {{ bb.rubric.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        {% if bb.image %}
+        <div class="col-md-auto"><img src="{{ bb.image.url }}" width="450" height="300" alt=""
+        class="main-image"></div>
+        {% endif %}
+        <div class="col">
+            <h2>{{ bb.title }}</h2>
+            <p>{{ bb.content }}</p>
+            <p class="font-weight-bold">{{ bb.price }} руб.</p>
+            <p>{{ bb.contacts }}</p>
+            <p class="text-left font-italic">Добавлено
+            {{ bb.created_at }}</p>
+            <p class="text-left mt-2">
+                <a href="{% url 'main:profile_bb_change' pk=bb.pk %}">
+                Исправить</a>
+                |
+                <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить</a>
+            </p>
+            <a class="btn btn-primary"
+                href="{% url 'main:profile' %}{{ all }}" role="button">
+                Назад
+            </a>
+        </div>
+    </div>
+</div>
+{% if ais %}
+<div class="d-flex justify-content-between flex-wrap mt-5">
+    {% for ai in ais %}
+    <div>
+        <img class="additional-image" src="{{ ai.image.url }}">
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

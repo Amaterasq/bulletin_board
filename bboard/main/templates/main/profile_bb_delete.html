@@ -1,0 +1,29 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}{{ bb.title }} - {{ bb.rubric.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        {% if bb.image %}
+        <div class="col-md-auto"><img src="{{ bb.image.url }}" width="450" height="300" alt=""
+        class="main-image"></div>
+        {% endif %}
+        <div class="col">
+            <h2>{{ bb.title }}</h2>
+            <p>{{ bb.content }}</p>
+            <p class="font-weight-bold">{{ bb.price }} руб.</p>
+            <p>{{ bb.contacts }}</p>
+            <p class="text-left font-italic">Добавлено
+            {{ bb.created_at }}</p>
+            <form method="post">
+                {% csrf_token %}
+                {% buttons submit='Удалить' %}{% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

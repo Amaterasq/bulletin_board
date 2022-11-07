@@ -1,0 +1,84 @@
+{% extends "layout/basic.html" %}
+
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}{{ bb.title }} - {{ bb.rubric.name }}{% endblock %}
+
+{% block content %}
+<!-- Информация об объявлении -->
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-7">
+            <h2>{{ bb.title }}<small><i> {{ bb.created_at }}</i></small></h2>
+            {% comment %} <p class="text-left font-italic">Добавлено
+                {{ bb.created_at }}
+            </p> {% endcomment %}
+            <p>{{ bb.content }}</p>
+            <p class="font-weight-bold">Цена: {{ bb.price }} руб.</p>
+            <p>Контакты: {{ bb.contacts }}</p>
+            <a class="btn btn-primary"
+                href="{% url 'main:index' %}" role="button">
+                Назад
+            </a>
+        </div>
+
+        <!-- Карусель -->
+        {% if ais and bb.image%}
+        <div id="demo" class="carousel slide ml-3" data-ride="carousel">
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ bb.image.url }}" alt="pic">
+                </div>
+                {% for ai in ais %}
+                <div class="carousel-item">
+                    <img src="{{ ai.image.url }}" alt="pic">
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+        {% elif bb.image %}
+        <div class="col-md-auto"><img src="{{ bb.image.url }}" width="450" height="300" alt=""
+            class="main-image">
+        </div>
+        {% else %}
+        <div class="col-md-auto">
+            <img src="{% static 'main/empty.jpg' %}" width="450" height="300" alt='empty'>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Комментарии -->
+<h4 class="mt-5">Оставьте комментарий</h4>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='vertical' %}
+    {% buttons submit='Добавить' %} {% endbuttons %}
+</form>
+{% if comments %}
+{% for comment in comments %}
+<div class="media border p-3">
+    <img src="{% static 'main/img_avatar3.png' %}" alt="user_pic" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+    <div class="media-body">
+      <h5>{{ comment.author  }}<small><i>  on {{ comment.created_at }}</i></small></h5>
+      <p>{{ comment.content }}</p>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

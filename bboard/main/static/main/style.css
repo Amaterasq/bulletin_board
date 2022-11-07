@@ -1,0 +1,28 @@
+/* header h1 {
+    background: url("bg.jpg") right / auto 100% no-repeat;
+} */
+.navbar-brand {
+    font-family: fantasy;
+    font-size: xx-large;
+}
+.root {
+    font-size: large;
+}
+img.main-image {
+    width: 300рх;
+}
+.carousel-inner img {
+    width: 450px;
+    height: 300px;
+}
+#demo {
+    width: 450px;
+    height: 300px;
+}
+.dropdown-menu {
+    position: absolute;
+    transform: translate3d(-110px, 40px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+}

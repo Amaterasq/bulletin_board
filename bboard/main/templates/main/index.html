@@ -1,0 +1,40 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Последние объявления{% endblock %}
+
+{% block content %}
+<h2 class="mb-2"><img src="{% static 'main/fire.svg' %}"
+    width="50" height="30" class="d-inline-block align-top" alt="">
+    Последние объявления
+</h2>
+{% if bbs %}
+<ul class="list-unstyled">
+    </br>
+    {% for bb in bbs %}
+    <li class="media my-2 p-2 border">
+        {% url 'main:detail' rubric_pk=bb.rubric.pk pk=bb.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        {% if bb.image %}
+          <img class="mr-3 rounded" src="{% thumbnail bb.image 'default' %}" width="190" height="120">
+        {% else %}
+          <img class="mr-3 rounded" src="{% static 'main/empty.jpg' %}" alt='empty'>
+        {% endif %}
+        </a>
+        <div class="media-body">
+          <h3><a href="{{ url }}{{ all }}">
+          {{ bb.title }}</a></h3>
+          <div>{{ bb.content|truncatewords:20 }}</div>
+          {% comment %} <p class="text-right font-weight-bold">{{ bb.rubric.name }}</p> {% endcomment %}
+          <p class="text-right font-weight-bold">{{ bb.price }} руб.</p>
+          {% comment %} <p class="text-right font-italic">{{ bb.created_at }}</p> {% endcomment %}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% comment %} {% bootstrap_pagination page url=keyword %} {% endcomment %}
+{% endif %}
+{% endblock %}
