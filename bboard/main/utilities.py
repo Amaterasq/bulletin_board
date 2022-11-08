@@ -29,6 +29,22 @@ def send_activation_notification(user):
     user.email_user(subject, body_text)
 
 
-# Проверить без
 def get_timestamp_path(instance, filename):
     return f'{datetime.now().timestamp()}{splitext(filename)[1]}'
+
+
+# Отправляет e-mail при комментировании объявления автора
+def send_new_comment_notification(comment):
+    if ALLOWED_HOSTS:
+        host = f'http://{ALLOWED_HOSTS[0]}'
+    else:
+        host = 'http://localhost:8000'
+    author = comment.bb.author
+    context = {
+        'author': author,
+        'host': host,
+        'comment': comment
+    }
+    subject = render_to_string('email/new_comment_letter_subject.txt', context)
+    body_text = render_to_string('email/new_comment_letter_body.txt', context)
+    author.email_user(subject, body_text)

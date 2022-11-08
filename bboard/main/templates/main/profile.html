@@ -12,16 +12,17 @@
 {% else %}
 <p>3дравствуйте!</p>
 {% endif %}
-<h3 class="mb-2">Ваши объявления</h3>
-<br>
-<a class="btn btn-success"
+<h3 class="mb-1">Ваши объявления
+  <a class="btn btn-success"
     href="{% url 'main:profile_bb_add' %}">
     Добавить объявление
-</a>
+  </a>
+</h3>
+
 {% if bbs %}
 <ul class="list-unstyled">
     {% for bb in bbs %}
-    <li class="media my-5 p-3 border">
+    <li class="media my-2 p-2 border">
         {% url 'main:profile_bb_detail' pk=bb.pk as url %}
         <a href="{{ url }}{{ all }}">
         {% if bb.image %}
@@ -32,16 +33,20 @@
         </a>
         <div class="media-body">
           <p>Рубрика: {{ bb.rubric }}</p>
-          <h3><a href="{{ url }}{{ all }}">
-          {{ bb.title }}</a></h3>
+          <h3>
+            <a href="{{ url }}{{ all }}">{{ bb.title }}</a>
+          </h3>
           <div>{{ bb.content }}</div>
           <p class="text-right font-weight-bold">{{ bb.price }} руб.</p>
           <p class="text-right font-italic">{{ bb.created_at }}</p>
           <p class="text-right mt-2">
             <a href="{% url 'main:profile_bb_change' pk=bb.pk %}">
-            Исправить</a>
+            Исправить
+            </a>
             |
-            <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить</a>
+            <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">
+              Удалить
+            </a>
           </p>
         </div>
     </li>

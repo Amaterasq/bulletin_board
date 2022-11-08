@@ -21,7 +21,7 @@
         {% if bb.image %}
           <img class="mr-3 rounded" src="{% thumbnail bb.image 'default' %}" width="190" height="120">
         {% else %}
-          <img class="mr-3 rounded" src="{% static 'main/empty.jpg' %}" alt='empty'>
+          <img class="mr-3 rounded" src="{% static 'main/empty.jpg' %}" width="190" height="120" alt='empty'>
         {% endif %}
         </a>
         <div class="media-body">
@@ -35,6 +35,5 @@
     </li>
     {% endfor %}
 </ul>
-{% comment %} {% bootstrap_pagination page url=keyword %} {% endcomment %}
 {% endif %}
 {% endblock %}

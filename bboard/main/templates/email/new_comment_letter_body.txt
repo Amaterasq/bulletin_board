@@ -1,0 +1,3 @@
+Пользователь {{ author.username }}
+оставил комментарий к Вашему объявлению "{{ comment.bb.title }}"
+Перейти к объявлению: {{ host }}{% url 'main:profile_bb_detail' pk=comment.bb.pk %}

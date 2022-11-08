@@ -10,7 +10,7 @@
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-lg-7">
-            <h2>{{ bb.title }}<small><i> {{ bb.created_at }}</i></small></h2>
+            <h2>{{ bb.title }}<small><i> {{ bb.created_at|date:"d.m.y" }}</i></small></h2>
             {% comment %} <p class="text-left font-italic">Добавлено
                 {{ bb.created_at }}
             </p> {% endcomment %}
@@ -52,11 +52,11 @@
             </a>
         </div>
         {% elif bb.image %}
-        <div class="col-md-auto"><img src="{{ bb.image.url }}" width="450" height="300" alt=""
+        <div class="col-ml-3"><img src="{{ bb.image.url }}" width="450" height="300" alt=""
             class="main-image">
         </div>
         {% else %}
-        <div class="col-md-auto">
+        <div class="col-ml-3">
             <img src="{% static 'main/empty.jpg' %}" width="450" height="300" alt='empty'>
         </div>
         {% endif %}
