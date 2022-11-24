@@ -113,6 +113,11 @@ class Bb(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Автор объявления'
     )
+    like = models.ManyToManyField(
+        AdvUser,
+        blank=True,
+        related_name="liked_user"
+    )
     is_active = models.BooleanField(
         default=True,
         db_index=True,
@@ -185,3 +190,6 @@ def post_save_dispatcher(sender, **kwargs):
 
 
 post_save.connect(post_save_dispatcher, sender=Comment)
+
+
+

@@ -30,6 +30,27 @@
           <div>{{ bb.content|truncatewords:20 }}</div>
           {% comment %} <p class="text-right font-weight-bold">{{ bb.rubric.name }}</p> {% endcomment %}
           <p class="text-right font-weight-bold">{{ bb.price }} руб.</p>
+          
+          <!-- Like -->
+          <p class="text-right font-weight-bold">
+            <img
+            data-id="{{bb.id}}"
+            id="post-like-{{bb.id}}"
+              class="liked"
+              {% if not request.user in bb.like.all %}
+                data-is_liked="no"
+                src="https://img.icons8.com/windows/512/like.png"
+                src="{% static 'main/heart-empty.png' %}"
+              {%else%}
+                data-is_liked="yes"
+                src="https://img.icons8.com/windows/512/filled-heart.png"
+              {%endif%}
+            width="30" height="30"
+            />
+            <span id="post-count-{{bb.id}}">{{bb.like.count}}</span>
+          </p>
+          <!-- endlike -->
+
           {% comment %} <p class="text-right font-italic">{{ bb.created_at }}</p> {% endcomment %}
         </div>
     </li>
@@ -37,3 +58,4 @@
 </ul>
 {% endif %}
 {% endblock %}
+{% block script %} <script src="{% static 'main/like.js'%}"></script> {% endblock %}

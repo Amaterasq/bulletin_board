@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
@@ -266,3 +268,29 @@ def detail(request, rubric_pk, pk):
             )
     context = {'bb': bb, 'ais': ais, 'comments': comments, 'form': form}
     return render(request, 'main/detail.html', context)
+
+
+@login_required
+@csrf_exempt
+def like(request):
+    if request.method == "POST":
+        bb_id = request.POST.get('id')
+        is_liked = request.POST.get('is_liked')
+        try:
+            post = Bb.objects.get(id=bb_id)
+            if is_liked == 'no':
+                post.like.add(request.user)
+                is_liked = 'yes'
+            elif is_liked == 'yes':
+                post.like.remove(request.user)
+                is_liked = 'no'
+            post.save()
+
+            return JsonResponse({
+                'like_count': post.like.count(),
+                'is_liked': is_liked,
+                "status": 201
+            })
+        except Bb.DoesNotExist:
+            return JsonResponse({'error': "Post not found", "status": 404})
+    return JsonResponse({}, status=400)
