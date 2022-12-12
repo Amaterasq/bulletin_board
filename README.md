@@ -44,7 +44,16 @@ python3 manage.py runserver
 
 ## Как это выглядит
 - Главная страница
-![index](https:/github.com/Amaterasq/bulletin_board/raw/main/project_images/index.png)
+![index](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/index.png)
+- Выпадающее меню профиля
+![menu](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/profile_settings.png)
+- Выпадающий список рубрик из подрубрик
+![rubrics](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/rubrics.png)
+- Страница деталей объявления
+![bb_detail](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/bb_detail.png)
+- Профиль пользователя
+![bb_detail](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/profile.png)
 
+P.S. Фронт оставляет желать лучшего, в планах переделать
 ## Code Style
 * [PEP8](https://www.python.org/dev/peps/pep-0008/)
