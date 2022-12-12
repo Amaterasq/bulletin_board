@@ -1,5 +1,6 @@
 ![](https://img.shields.io/badge/Python-3.11.1-blue) 
 ![](https://img.shields.io/badge/Django-4.1.4-green)
+![](https://img.shields.io/badge/Bootstrap-4-purple)
 
 
 # Bboard! - размещение объявлений
