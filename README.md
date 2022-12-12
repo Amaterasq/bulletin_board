@@ -44,7 +44,7 @@ python3 manage.py runserver
 
 ## Как это выглядит
 - Главная страница
-![image]
-(https:/github.com/Amaterasq/bulletin_board/raw/main/project_images/index.png)
+![index](https:/github.com/Amaterasq/bulletin_board/raw/main/project_images/index.png)
+
 ## Code Style
 * [PEP8](https://www.python.org/dev/peps/pep-0008/)
