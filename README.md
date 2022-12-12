@@ -2,7 +2,7 @@
 ![](https://img.shields.io/badge/Django-4.1.4-green)
 
 
-# Board! - размещение объявлений
+# Bboard! - размещение объявлений
 ## pet-project
 ## Описание
 Сайт для публикации и поиска объявлений.
@@ -46,8 +46,10 @@ python3 manage.py runserver
 - Главная страница
 ![index](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/index.png)
 - Выпадающее меню профиля
+
 ![menu](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/profile_settings.png)
-- Выпадающий список рубрик из подрубрик
+- Выпадающий список рубрик из надрубрик
+
 ![rubrics](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/rubrics.png)
 - Страница деталей объявления
 ![bb_detail](https://github.com/Amaterasq/bulletin_board/raw/main/project_images/bb_detail.png)
